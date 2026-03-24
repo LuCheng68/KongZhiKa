@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Sunny.UI;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -11,6 +14,56 @@ namespace KongZhiKa.ZmotionHelp
     // 实现 ZmotioncsAbstract 抽象类的具体服务类
     internal class ZmotionService : ZmotioncsAbstract
     {
+        public string path = AppDomain.CurrentDomain.BaseDirectory + "\\ZMotion_错误码.txt";
+        public Dictionary<int, string> errorDic = new Dictionary<int, string>();
+        public ZmotionService()
+        {
+            if (!File.Exists(path))
+            {
+                Debug.WriteLine("错误文件不存在");
+                throw new Exception("错误文件不存在");
+            }
+
+            string[] fileString = File.ReadAllLines(path);
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < fileString.Count(); i++)
+            {
+                string[] str = fileString[i].Split('`');
+                sb.Append(str[1]);
+
+                if (!int.TryParse(str[0], out int code))
+                {
+                    Debug.WriteLine("转换失败");
+                    continue;
+                }
+                if (errorDic.ContainsKey(code))
+                {
+                    continue;
+                }
+                errorDic.Add(code, sb.ToString());
+                sb.Clear();
+            }
+            Debug.WriteLine(errorDic);
+        }
+
+        public ApiResult ErrorHandler(int errorCode)
+        {
+            if (errorCode == 0)
+            {
+                return ApiResult.CreateSuccess();
+            }
+            else if (errorCode >= 5546 && errorCode <= 5599)
+            {
+                return ApiResult.CreateFail("Pc端PLC文件编译失败");
+            }
+            else if (errorDic.ContainsKey(errorCode))
+            { 
+                return ApiResult.CreateFail(errorDic[errorCode]);
+            }
+            return ApiResult.CreateFail("未知错误");
+        }        
+
         /// <summary>
         /// 关闭Zmtion操作
         /// </summary>
@@ -111,7 +164,8 @@ namespace KongZhiKa.ZmotionHelp
                 if (list.Sum() > 0)
                 {
                     // 如果存在错误码，合并所有错误码并返回失败结果
-                    return ApiResult.CreateFail($"执行连续运动失败，错误代码：{list.Sum()}");
+                    //return ApiResult.CreateFail($"执行连续运动失败，错误代码：{list.Sum()}");
+                    return ErrorHandler(list.Sum());
                 }
                 // 成功执行完所有操作后返回成功结果
                 return ApiResult.CreateSuccess();
