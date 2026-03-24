@@ -17,7 +17,7 @@ namespace KongZhiKa
     public partial class Form1 : UIForm
     {
         private ZmotioncsAbstract zmotioncs;
-
+        
         public Form1()
         {
             InitializeComponent();
@@ -32,7 +32,6 @@ namespace KongZhiKa
             ui_ip.Items.AddRange(zm.ToArray());
             // 添加一个固定的IP地址到UI中
             ui_ip.Items.Add("192.168.0.11");
-
 
             Debug.WriteLine(zm.ToArray());
         }
