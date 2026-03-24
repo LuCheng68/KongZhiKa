@@ -1,5 +1,4 @@
-# This workflow will build, test a .NET Core Desktop Application (WPF/WinForms)
-name: .NET Core Desktop
+name: .NET Framework Build
 
 on:
   push:
@@ -18,7 +17,6 @@ jobs:
 
     env:
       Solution_Name: KongZhiKa.sln
-      Test_Project_Path: KongZhiKa\KongZhiKa.csproj
 
     steps:
     - name: Checkout
@@ -26,24 +24,24 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Install the .NET Core workload
-    - name: Install .NET Core
-      uses: actions/setup-dotnet@v4
+    # 安装 NuGet 工具
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1
       with:
-        dotnet-version: 8.0.x
+        nuget-version: latest
 
-    # Add MSBuild to the PATH
-    - name: Setup MSBuild.exe
+    # 添加 MSBuild 到环境变量
+    - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    # Restore dependencies
-    - name: Restore dependencies
-      run: dotnet restore ${{ env.Solution_Name }}
+    # 使用 nuget restore 还原依赖项
+    - name: Restore NuGet packages
+      run: nuget restore ${{ env.Solution_Name }}
 
-    # Build the solution
-    - name: Build the solution
+    # 构建整个解决方案
+    - name: Build solution
       run: msbuild ${{ env.Solution_Name }} /p:Configuration=${{ matrix.configuration }}
 
-    # Execute unit tests
-    - name: Execute unit tests
-      run: dotnet test ${{ env.Test_Project_Path }} --no-build --verbosity normal
+    # 如果你有测试项目，可以取消注释以下部分
+    # - name: Run tests
+    #   run: dotnet test YourTestProject\YourTestProject.csproj --no-build --verbosity normal
