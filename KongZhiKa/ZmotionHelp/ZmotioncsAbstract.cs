@@ -54,11 +54,27 @@ namespace KongZhiKa.ZmotionHelp
         /// <returns></returns>
         public abstract ApiResult StopAxis(int nAxis);
 
+        /// <summary>
+        /// 设置指定轴的限位和原点
+        /// </summary>
+        /// <param name="axis">轴的标识符</param>
+        /// <returns>API执行结果</returns>
         public abstract ApiResult SetLimitAndHome(int axis);
 
+        /// <summary>
+        /// 获取指定输入的状态
+        /// </summary>
+        /// <param name="io">输入的标识符</param>
+        /// <param name="status">输出的状态值</param>
         public abstract void GetInputStatus(int io, out uint status);
 
+        /// <summary>
+        /// 获取指定轴的位置
+        /// </summary>
+        /// <param name="axisList">轴的标识符数组</param>
+        /// <param name="pos">输出的位置值数组</param>
         public abstract void GetPostion(int[] axisList, out float[] pos);
+
 
 
     }
