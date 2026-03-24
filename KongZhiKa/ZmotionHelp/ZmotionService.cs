@@ -152,5 +152,20 @@ namespace KongZhiKa.ZmotionHelp
             }
             zmcaux.ZAux_Direct_GetIn(g_handle, io, ref status);
         }
+
+        public override void GetPostion(int[] axisList, out float[] pos)
+        {
+            pos = new float[axisList.Length];
+            if (!isOpen)
+            {
+                return;
+            }
+            for (int i = 0; i < axisList.Length; i++) 
+            {
+                //获取当前轴坐标
+                int nAxis = axisList[i];
+                zmcaux.ZAux_Direct_GetDpos(g_handle, nAxis, ref pos[i]);
+            }
+        }
     }
 }

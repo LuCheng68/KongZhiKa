@@ -58,6 +58,8 @@ namespace KongZhiKa.ZmotionHelp
 
         public abstract void GetInputStatus(int io, out uint status);
 
+        public abstract void GetPostion(int[] axisList, out float[] pos);
+
 
     }
 }

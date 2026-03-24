@@ -78,12 +78,20 @@ namespace KongZhiKa
             zmotioncs.StopAxis(int.Parse(str[0]));
         }
 
+        int[] axis = new int[] {0,1,3 };
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (!zmotioncs.isOpen)
             {
                 return;
             }
+
+            zmotioncs.GetPostion(axis, out float[] pos);
+            toolStripStatusLabel4.Text = pos[1].ToString();
+            toolStripStatusLabel8.Text = pos[2].ToString();
+            toolStripStatusLabel6.Text = pos[0].ToString();
+
+
             foreach (Control item in uiGroupBox3.Controls)
             {
                 if (!(item is PictureBox))
