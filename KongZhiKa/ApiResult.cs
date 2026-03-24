@@ -29,5 +29,9 @@ namespace KongZhiKa
             return new ApiResult(){IsSuccess = false, Message = message};
         }
 
+        internal static ApiResult CreateFail(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

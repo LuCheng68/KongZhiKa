@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.uiPanel1 = new Sunny.UI.UIPanel();
             this.uiGroupBox1 = new Sunny.UI.UIGroupBox();
             this.uiCheckBox3 = new Sunny.UI.UICheckBox();
@@ -36,7 +37,7 @@
             this.uiButton3 = new Sunny.UI.UIButton();
             this.uiButton2 = new Sunny.UI.UIButton();
             this.uiButton1 = new Sunny.UI.UIButton();
-            this.uiComboBox1 = new Sunny.UI.UIComboBox();
+            this.ui_ip = new Sunny.UI.UIComboBox();
             this.uiLabel1 = new Sunny.UI.UILabel();
             this.uiGroupBox2 = new Sunny.UI.UIGroupBox();
             this.uiTextBox6 = new Sunny.UI.UITextBox();
@@ -103,9 +104,10 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel8 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.uiPanel1.SuspendLayout();
             this.uiGroupBox1.SuspendLayout();
             this.uiGroupBox2.SuspendLayout();
@@ -137,7 +139,7 @@
             this.uiPanel1.Controls.Add(this.uiButton3);
             this.uiPanel1.Controls.Add(this.uiButton2);
             this.uiPanel1.Controls.Add(this.uiButton1);
-            this.uiPanel1.Controls.Add(this.uiComboBox1);
+            this.uiPanel1.Controls.Add(this.ui_ip);
             this.uiPanel1.Controls.Add(this.uiLabel1);
             this.uiPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.uiPanel1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -246,23 +248,23 @@
             this.uiButton1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiButton1.Click += new System.EventHandler(this.uiButton1_Click);
             // 
-            // uiComboBox1
+            // ui_ip
             // 
-            this.uiComboBox1.DataSource = null;
-            this.uiComboBox1.FillColor = System.Drawing.Color.White;
-            this.uiComboBox1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiComboBox1.ItemHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
-            this.uiComboBox1.ItemSelectForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiComboBox1.Location = new System.Drawing.Point(161, 46);
-            this.uiComboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiComboBox1.MinimumSize = new System.Drawing.Size(63, 0);
-            this.uiComboBox1.Name = "uiComboBox1";
-            this.uiComboBox1.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
-            this.uiComboBox1.Size = new System.Drawing.Size(205, 30);
-            this.uiComboBox1.SymbolSize = 24;
-            this.uiComboBox1.TabIndex = 1;
-            this.uiComboBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiComboBox1.Watermark = "";
+            this.ui_ip.DataSource = null;
+            this.ui_ip.FillColor = System.Drawing.Color.White;
+            this.ui_ip.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ui_ip.ItemHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
+            this.ui_ip.ItemSelectForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.ui_ip.Location = new System.Drawing.Point(161, 46);
+            this.ui_ip.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ui_ip.MinimumSize = new System.Drawing.Size(63, 0);
+            this.ui_ip.Name = "ui_ip";
+            this.ui_ip.Padding = new System.Windows.Forms.Padding(0, 0, 30, 2);
+            this.ui_ip.Size = new System.Drawing.Size(205, 30);
+            this.ui_ip.SymbolSize = 24;
+            this.ui_ip.TabIndex = 1;
+            this.ui_ip.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ui_ip.Watermark = "";
             // 
             // uiLabel1
             // 
@@ -489,6 +491,7 @@
             this.pictureBox9.Size = new System.Drawing.Size(103, 35);
             this.pictureBox9.TabIndex = 3;
             this.pictureBox9.TabStop = false;
+            this.pictureBox9.Tag = "pic_12";
             // 
             // pictureBox6
             // 
@@ -498,6 +501,7 @@
             this.pictureBox6.Size = new System.Drawing.Size(103, 35);
             this.pictureBox6.TabIndex = 3;
             this.pictureBox6.TabStop = false;
+            this.pictureBox6.Tag = "pic_2";
             // 
             // pictureBox3
             // 
@@ -507,6 +511,7 @@
             this.pictureBox3.Size = new System.Drawing.Size(103, 35);
             this.pictureBox3.TabIndex = 3;
             this.pictureBox3.TabStop = false;
+            this.pictureBox3.Tag = "pic_10";
             // 
             // pictureBox8
             // 
@@ -516,6 +521,7 @@
             this.pictureBox8.Size = new System.Drawing.Size(103, 35);
             this.pictureBox8.TabIndex = 3;
             this.pictureBox8.TabStop = false;
+            this.pictureBox8.Tag = "pic_11";
             // 
             // pictureBox5
             // 
@@ -525,6 +531,7 @@
             this.pictureBox5.Size = new System.Drawing.Size(103, 35);
             this.pictureBox5.TabIndex = 3;
             this.pictureBox5.TabStop = false;
+            this.pictureBox5.Tag = "pic_0";
             // 
             // pictureBox2
             // 
@@ -534,6 +541,7 @@
             this.pictureBox2.Size = new System.Drawing.Size(103, 35);
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.Tag = "pic_8";
             // 
             // pictureBox7
             // 
@@ -543,6 +551,7 @@
             this.pictureBox7.Size = new System.Drawing.Size(103, 35);
             this.pictureBox7.TabIndex = 3;
             this.pictureBox7.TabStop = false;
+            this.pictureBox7.Tag = "pic_13";
             // 
             // pictureBox4
             // 
@@ -552,6 +561,7 @@
             this.pictureBox4.Size = new System.Drawing.Size(103, 35);
             this.pictureBox4.TabIndex = 3;
             this.pictureBox4.TabStop = false;
+            this.pictureBox4.Tag = "pic_1";
             // 
             // pictureBox1
             // 
@@ -561,6 +571,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(103, 35);
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Tag = "pic_9";
             // 
             // uiLabel10
             // 
@@ -953,6 +964,9 @@
             this.pictureBox16.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox16.TabIndex = 3;
             this.pictureBox16.TabStop = false;
+            this.pictureBox16.Tag = "0,-1";
+            this.pictureBox16.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox11_MouseDown);
+            this.pictureBox16.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox11_MouseUp);
             // 
             // pictureBox15
             // 
@@ -964,6 +978,9 @@
             this.pictureBox15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox15.TabIndex = 3;
             this.pictureBox15.TabStop = false;
+            this.pictureBox15.Tag = "0,1";
+            this.pictureBox15.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox11_MouseDown);
+            this.pictureBox15.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox11_MouseUp);
             // 
             // pictureBox14
             // 
@@ -975,6 +992,9 @@
             this.pictureBox14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox14.TabIndex = 3;
             this.pictureBox14.TabStop = false;
+            this.pictureBox14.Tag = "1,-1";
+            this.pictureBox14.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox11_MouseDown);
+            this.pictureBox14.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox11_MouseUp);
             // 
             // pictureBox13
             // 
@@ -987,6 +1007,9 @@
             this.pictureBox13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox13.TabIndex = 3;
             this.pictureBox13.TabStop = false;
+            this.pictureBox13.Tag = "1,1";
+            this.pictureBox13.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox11_MouseDown);
+            this.pictureBox13.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox11_MouseUp);
             // 
             // pictureBox12
             // 
@@ -998,6 +1021,9 @@
             this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox12.TabIndex = 3;
             this.pictureBox12.TabStop = false;
+            this.pictureBox12.Tag = "3,-1";
+            this.pictureBox12.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox11_MouseDown);
+            this.pictureBox12.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox11_MouseUp);
             // 
             // pictureBox11
             // 
@@ -1009,6 +1035,9 @@
             this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox11.TabIndex = 3;
             this.pictureBox11.TabStop = false;
+            this.pictureBox11.Tag = "3,1";
+            this.pictureBox11.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox11_MouseDown);
+            this.pictureBox11.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox11_MouseUp);
             // 
             // statusStrip1
             // 
@@ -1086,6 +1115,10 @@
             this.toolStripStatusLabel6.Size = new System.Drawing.Size(53, 43);
             this.toolStripStatusLabel6.Text = "0.00";
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1144,7 +1177,7 @@
         private Sunny.UI.UIButton uiButton3;
         private Sunny.UI.UIButton uiButton2;
         private Sunny.UI.UIButton uiButton1;
-        private Sunny.UI.UIComboBox uiComboBox1;
+        private Sunny.UI.UIComboBox ui_ip;
         private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UIGroupBox uiGroupBox1;
         private Sunny.UI.UICheckBox uiCheckBox2;
@@ -1218,6 +1251,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel7;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
         private Sunny.UI.UICheckBox uiCheckBox3;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
