@@ -1,47 +1,62 @@
-name: .NET Framework Build
+name: Build and Release EXE
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    tags:
+      - 'v*'  # 只在推送 tag 时触发（如 v1.0.0）
 
 jobs:
   build:
-
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
-
     runs-on: windows-latest
 
     env:
       Solution_Name: KongZhiKa.sln
+      Output_Dir: KongZhiKa/bin/Release
 
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
 
-    # 安装 NuGet 工具
+    # 安装 .NET Framework 工具链
     - name: Setup NuGet
       uses: nuget/setup-nuget@v1
       with:
         nuget-version: latest
 
-    # 添加 MSBuild 到环境变量
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    # 使用 nuget restore 还原依赖项
-    - name: Restore NuGet packages
+    # 恢复 NuGet 包
+    - name: Restore NuGet Packages
       run: nuget restore ${{ env.Solution_Name }}
 
-    # 构建整个解决方案
-    - name: Build solution
-      run: msbuild ${{ env.Solution_Name }} /p:Configuration=${{ matrix.configuration }}
+    # 构建解决方案 Release 版本
+    - name: Build Solution
+      run: msbuild ${{ env.Solution_Name }} /p:Configuration=Release
 
-    # 如果你有测试项目，可以取消注释以下部分
-    # - name: Run tests
-    #   run: dotnet test YourTestProject\YourTestProject.csproj --no-build --verbosity normal
+    # 打包构建输出为 ZIP（包含 .exe 和依赖）
+    - name: Create ZIP Archive
+      run: |
+        Compress-Archive -Path "${{ env.Output_Dir }}\*" -DestinationPath KongZhiKa-${{ github.ref_name }}.zip
+
+    # 创建 GitHub Release 并上传 ZIP 包
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: Release ${{ github.ref_name }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./KongZhiKa-${{ github.ref_name }}.zip
+        asset_name: KongZhiKa-${{ github.ref_name }}.zip
+        asset_content_type: application/zip
