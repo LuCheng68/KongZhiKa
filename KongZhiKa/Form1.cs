@@ -92,7 +92,7 @@ namespace KongZhiKa
                 }
                 PictureBox pic = item as PictureBox;
                 string[] str = pic.Tag.ToString().Split("_");
-                zmotioncs.GetInputStaus(int.Parse(str[0]), out uint status);
+                zmotioncs.GetInputStatus(int.Parse(str[0]), out uint status);
 
                 if (status == 1)
                 {
