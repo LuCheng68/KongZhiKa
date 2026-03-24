@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace KongZhiKa.ZmotionHelp
 {
-
     internal abstract class ZmotioncsAbstract
     {
         public IntPtr g_handle;
@@ -46,7 +45,6 @@ namespace KongZhiKa.ZmotionHelp
         /// <returns></returns>
         public abstract ApiResult Vmove(int nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, int dir);
 
-
         /// <summary>
         /// 停止轴
         /// </summary>
@@ -74,8 +72,5 @@ namespace KongZhiKa.ZmotionHelp
         /// <param name="axisList">轴的标识符数组</param>
         /// <param name="pos">输出的位置值数组</param>
         public abstract void GetPostion(int[] axisList, out float[] pos);
-
-
-
     }
 }

@@ -36,7 +36,6 @@ namespace KongZhiKa
 
             Debug.WriteLine(zm.ToArray());
         }
-
         private void uiButton1_Click(object sender, EventArgs e)
         {
             // 处理按钮点击事件，检查IP地址是否为空或未选择
@@ -68,13 +67,11 @@ namespace KongZhiKa
             MessageBox.Show("连接成功");
         }
 
-
         // 当窗体关闭时触发此方法
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             zmotioncs.CloseZmtion();
         }
-
 
         private void pictureBox11_MouseDown(object sender, MouseEventArgs e)
         {
@@ -88,7 +85,6 @@ namespace KongZhiKa
                 Convert.ToSingle(uiTextBox4.Text), Convert.ToSingle(uiTextBox5.Text),
                 Convert.ToSingle(uiTextBox6.Text), 1);
         }
-
 
         /// <summary>
         /// 当鼠标在pictureBox11上释放时触发的方法。
@@ -104,7 +100,6 @@ namespace KongZhiKa
             zmotioncs.StopAxis(int.Parse(str[0]));
         }
 
-
         int[] axis = new int[] { 0, 1, 3 };
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -114,14 +109,11 @@ namespace KongZhiKa
                 return;
             }
 
-
             zmotioncs.GetPostion(axis, out float[] pos);
             // 更新工具栏状态标签的文本内容，显示位置信息
             toolStripStatusLabel4.Text = pos[1].ToString();
             toolStripStatusLabel8.Text = pos[2].ToString();
             toolStripStatusLabel6.Text = pos[0].ToString();
-
-
 
             // 遍历uiGroupBox3控件集合中的每个控件
             foreach (Control item in uiGroupBox3.Controls)
@@ -150,7 +142,6 @@ namespace KongZhiKa
                     pic.BackColor = Color.Green;
                 }
             }
-
         }
     }
 }
