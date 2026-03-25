@@ -79,10 +79,10 @@ namespace KongZhiKa
             // 将按钮的Tag属性拆分为字符串数组
             string[] str = button.Tag.ToString().Split(',').ToArray();
             // 调用zmotioncs类的Vmove方法，传入解析后的参数和一些文本框中的浮点数值
-            zmotioncs.Vmove(int.Parse(str[0]), Convert.ToSingle(uiTextBox1.Text),
-                Convert.ToSingle(uiTextBox2.Text), Convert.ToSingle(uiTextBox3.Text),
-                Convert.ToSingle(uiTextBox4.Text), Convert.ToSingle(uiTextBox5.Text),
-                Convert.ToSingle(uiTextBox6.Text), 1);
+            zmotioncs.Vmove(int.Parse(str[0]), Convert.ToSingle(TextBox_unit.Text),
+                Convert.ToSingle(TextBox_lspeed.Text), Convert.ToSingle(TextBox_seed.Text),
+                Convert.ToSingle(TextBox_accel.Text), Convert.ToSingle(TextBox_decel.Text),
+                Convert.ToSingle(TextBox_aramp.Text), 1);
         }
 
         /// <summary>
@@ -141,6 +141,48 @@ namespace KongZhiKa
                     pic.BackColor = Color.Green;
                 }
             }
+        }
+
+        private void uiButton7_Click(object sender, EventArgs e)
+        {
+            //轴
+            List<int> result = new List<int>();
+            //距离
+            List<float> distance = new List<float>();
+
+            foreach (Control item in uiGroupBox1.Controls)
+            {
+                if (!(item is UICheckBox))
+                {
+                    continue;
+                }
+
+                UICheckBox ck = item as UICheckBox;
+
+                if (!ck.Checked) 
+                {
+                    continue;
+                }
+                result.Add(int.Parse(ck.Tag.ToString()));
+                foreach (Control item1 in uiGroupBox6.Controls)
+                {
+                    if (!(item1 is UITextBox)|| null == item1.Tag)
+                    {
+                        continue;
+                    }
+                    if (item.Tag.ToString() == item1.Tag.ToString())
+                    {
+                        distance.Add(float.Parse(item1.Text));
+                    }
+                }
+            }
+
+            // 调用zmotioncs类的MultipleSpindle方法，传入多个参数以进行多主轴操作
+            zmotioncs.MultipleSpindle(result.ToArray(), float.Parse(TextBox_unit.Text),
+                float.Parse(TextBox_lspeed.Text), float.Parse(TextBox_seed.Text),
+                float.Parse(TextBox_accel.Text), float.Parse(TextBox_decel.Text),
+                float.Parse(TextBox_aramp.Text), distance.ToArray());
+
         }
     }
 }

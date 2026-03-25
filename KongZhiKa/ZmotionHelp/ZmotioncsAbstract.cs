@@ -72,5 +72,47 @@ namespace KongZhiKa.ZmotionHelp
         /// <param name="axisList">轴的标识符数组</param>
         /// <param name="pos">输出的位置值数组</param>
         public abstract void GetPostion(int[] axisList, out float[] pos);
+
+        /// <summary>
+        /// 轴相对移动
+        /// </summary>
+        /// <param name="nAxis"></param>
+        /// <param name="TextBox_units"></param>
+        /// <param name="TextBox_lspeed"></param>
+        /// <param name="TextBox_speed"></param>
+        /// <param name="TextBox_accel"></param>
+        /// <param name="TextBox_decel"></param>
+        /// <param name="TextBox_sramp"></param>
+        /// <returns></returns>
+        public abstract ApiResult relativeMove(int nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, float fdistance);
+
+
+
+        /// <summary>
+        /// 轴绝对移动
+        /// </summary>
+        /// <param name="nAxis"></param>
+        /// <param name="TextBox_units"></param>
+        /// <param name="TextBox_lspeed"></param>
+        /// <param name="TextBox_speed"></param>
+        /// <param name="TextBox_accel"></param>
+        /// <param name="TextBox_decel"></param>
+        /// <param name="TextBox_sramp"></param>
+        /// <returns></returns>
+        public abstract ApiResult MoveAS(int nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, float fdistance);
+
+
+        public abstract ApiResult MultipleSpindle(int[] nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, float[] fdistance);
+
+
+        public abstract ApiResult IsMove(int axis);
+
+        /// <summary>
+        /// 等待轴停止
+        /// </summary>
+        /// <param name="axis"></param>
+        /// <returns></returns>
+        public abstract ApiResult WaitStop(int axis);
+
     }
 }

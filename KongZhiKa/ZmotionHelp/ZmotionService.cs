@@ -5,9 +5,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Zmotion08;
+using System.Threading;
+using System.Windows.Forms;
+
 
 namespace KongZhiKa.ZmotionHelp
 {
@@ -58,11 +62,11 @@ namespace KongZhiKa.ZmotionHelp
                 return ApiResult.CreateFail("Pc端PLC文件编译失败");
             }
             else if (errorDic.ContainsKey(errorCode))
-            { 
+            {
                 return ApiResult.CreateFail(errorDic[errorCode]);
             }
             return ApiResult.CreateFail("未知错误");
-        }        
+        }
 
         /// <summary>
         /// 关闭Zmtion操作
@@ -257,6 +261,151 @@ namespace KongZhiKa.ZmotionHelp
                 // 调用底层 API 获取轴位置并存入 pos 数组
                 zmcaux.ZAux_Direct_GetDpos(g_handle, nAxis, ref pos[i]);
             }
+        }
+
+        public override ApiResult relativeMove(int nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, float fdistance)
+        {
+            // 检查设备是否已打开
+            if (!isOpen)
+            {
+                return ApiResult.CreateFail();
+            }
+            // 新建操作记录列表
+            List<int> list = new List<int>();
+            try
+            {
+                //设置轴类型
+                list.Add(zmcaux.ZAux_Direct_SetAtype(g_handle, nAxis, 1));
+                //设置脉冲当量
+                list.Add(zmcaux.ZAux_Direct_SetUnits(g_handle, nAxis, TextBox_units));
+                //设置轴起始速度
+                list.Add(zmcaux.ZAux_Direct_SetLspeed(g_handle, nAxis, TextBox_lspeed));
+                //设置轴速度
+                list.Add(zmcaux.ZAux_Direct_SetSpeed(g_handle, nAxis, TextBox_speed));
+                //设置轴加速度
+                list.Add(zmcaux.ZAux_Direct_SetAccel(g_handle, nAxis, TextBox_accel));
+                //设置轴减速度
+                list.Add(zmcaux.ZAux_Direct_SetDecel(g_handle, nAxis, TextBox_decel));
+                //设置轴S段加速度
+                list.Add(zmcaux.ZAux_Direct_SetSramp(g_handle, nAxis, TextBox_sramp));
+                //相对运动
+                list.Add(zmcaux.ZAux_Direct_Single_Move(g_handle, nAxis, fdistance));
+
+                // 判断上述操作是否有失败的
+                if (list.Sum() > 0)
+                {
+                    // 如果存在错误码，合并所有错误码并返回失败结果
+                    //return ApiResult.CreateFail($"执行连续运动失败，错误代码：{list.Sum()}");
+                    return ErrorHandler(list.Sum());
+                }
+                // 成功执行完所有操作后返回成功结果
+                return ApiResult.CreateSuccess();
+            }
+            catch (Exception ex)
+            {
+                // 如果执行过程中抛异常，则返回失败结果和异常信息
+                return ApiResult.CreateFail($"执行连续运动失败，异常信息：{ex.Message}");
+            }
+        }
+
+        public override ApiResult MoveAS(int nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, float fdistance)
+        {
+            // 检查设备是否已打开
+            if (!isOpen)
+            {
+                return ApiResult.CreateFail();
+            }
+            // 新建操作记录列表
+            List<int> list = new List<int>();
+            try
+            {
+                //设置轴类型
+                list.Add(zmcaux.ZAux_Direct_SetAtype(g_handle, nAxis, 1));
+                //设置脉冲当量
+                list.Add(zmcaux.ZAux_Direct_SetUnits(g_handle, nAxis, TextBox_units));
+                //设置轴起始速度
+                list.Add(zmcaux.ZAux_Direct_SetLspeed(g_handle, nAxis, TextBox_lspeed));
+                //设置轴速度
+                list.Add(zmcaux.ZAux_Direct_SetSpeed(g_handle, nAxis, TextBox_speed));
+                //设置轴加速度
+                list.Add(zmcaux.ZAux_Direct_SetAccel(g_handle, nAxis, TextBox_accel));
+                //设置轴减速度
+                list.Add(zmcaux.ZAux_Direct_SetDecel(g_handle, nAxis, TextBox_decel));
+                //设置轴S段加速度
+                list.Add(zmcaux.ZAux_Direct_SetSramp(g_handle, nAxis, TextBox_sramp));
+                //绝对运动
+                list.Add(zmcaux.ZAux_Direct_Single_MoveAbs(g_handle, nAxis, fdistance));
+
+                // 判断上述操作是否有失败的
+                if (list.Sum() > 0)
+                {
+                    // 如果存在错误码，合并所有错误码并返回失败结果
+                    //return ApiResult.CreateFail($"执行连续运动失败，错误代码：{list.Sum()}");
+                    return ErrorHandler(list.Sum());
+                }
+                // 成功执行完所有操作后返回成功结果
+                return ApiResult.CreateSuccess();
+            }
+            catch (Exception ex)
+            {
+                // 如果执行过程中抛异常，则返回失败结果和异常信息
+                return ApiResult.CreateFail($"执行连续运动失败，异常信息：{ex.Message}");
+            }
+        }
+
+        public override ApiResult MultipleSpindle(int[] nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, float[] fdistance)
+        {
+            if (!base.isOpen)
+            {
+                return ApiResult.CreateFail();
+            }
+
+            for (int i = 0; i < nAxis.Length; i++)
+            {
+                if (this.IsMove(nAxis[i]).IsSuccess)
+                {
+                    return ApiResult.CreateFail("轴在运动，请等待停止！");
+                }
+            }
+
+            for (int i = 0; i < nAxis.Length; i++)
+            {
+                ApiResult api = this.relativeMove(nAxis[i], TextBox_units, TextBox_lspeed, TextBox_speed, TextBox_accel, TextBox_decel, TextBox_sramp, fdistance[i]);
+                if (!api.IsSuccess)
+                {
+                    return api;
+                }
+            }
+
+            for (int i = 0; i < nAxis.Length; i++)
+            {
+                ApiResult api = this.WaitStop(nAxis[i]);
+                if (!api.IsSuccess)
+                {
+                    return api;
+                }
+            }
+            return ApiResult.CreateSuccess();
+        }
+
+        public override ApiResult IsMove(int axis)
+        {
+            int status = 0;
+            zmcaux.ZAux_Direct_GetIfIdle(g_handle, axis, ref status);
+            return status == 0 ? ApiResult.CreateSuccess() : ApiResult.CreateFail();
+        }
+
+        public override ApiResult WaitStop(int axis)
+        {
+            int status = 0;
+            while (status == 0)
+            {
+                zmcaux.ZAux_Direct_GetIfIdle(g_handle, axis, ref status);
+                Thread.Sleep(100);
+                //刷新页面
+                Application.DoEvents();
+            }
+            return ApiResult.CreateSuccess();
         }
     }
 }
