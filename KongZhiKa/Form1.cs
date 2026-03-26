@@ -57,7 +57,9 @@ namespace KongZhiKa
             // 设置三个轴的限位和回原点
             zmotioncs.SetLimitAndHome(0);
             zmotioncs.SetLimitAndHome(1);
-            zmotioncs.SetLimitAndHome(3);
+            zmotioncs.SetLimitAndHome(2);
+            //zmotioncs.SetLimitAndHome(3);
+
 
             // 启动计时器，开始定时操作
             timer1.Enabled = true;
@@ -75,14 +77,14 @@ namespace KongZhiKa
         private void pictureBox11_MouseDown(object sender, MouseEventArgs e)
         {
             // 将发送者转换为按钮对象
-            Button button = sender as Button;
+            PictureBox button = sender as PictureBox;
             // 将按钮的Tag属性拆分为字符串数组
             string[] str = button.Tag.ToString().Split(',').ToArray();
             // 调用zmotioncs类的Vmove方法，传入解析后的参数和一些文本框中的浮点数值
             zmotioncs.Vmove(int.Parse(str[0]), Convert.ToSingle(TextBox_unit.Text),
                 Convert.ToSingle(TextBox_lspeed.Text), Convert.ToSingle(TextBox_seed.Text),
                 Convert.ToSingle(TextBox_accel.Text), Convert.ToSingle(TextBox_decel.Text),
-                Convert.ToSingle(TextBox_aramp.Text), 1);
+                Convert.ToSingle(TextBox_aramp.Text), int.Parse(str[1]));
         }
 
         /// <summary>
@@ -94,12 +96,14 @@ namespace KongZhiKa
         /// <param name="e">鼠标事件参数。
         private void pictureBox11_MouseUp(object sender, MouseEventArgs e)
         {
-            Button button = sender as Button;
+            PictureBox button = sender as PictureBox;
             string[] str = button.Tag.ToString().Split(',').ToArray();
             zmotioncs.StopAxis(int.Parse(str[0]));
         }
 
-        int[] axis = new int[] { 0, 1, 3 };
+        //int[] axis = new int[] { 0, 1, 3 };
+        int[] axis = new int[] { 0, 1, 2 };
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             // 检查是否连接，如果未打开则直接返回
@@ -110,9 +114,9 @@ namespace KongZhiKa
 
             zmotioncs.GetPostion(axis, out float[] pos);
             // 更新工具栏状态标签的文本内容，显示位置信息
-            toolStripStatusLabel4.Text = pos[1].ToString();
-            toolStripStatusLabel8.Text = pos[2].ToString();
-            toolStripStatusLabel6.Text = pos[0].ToString();
+            toolStripStatusLabel4.Text = pos[2].ToString();
+            toolStripStatusLabel8.Text = pos[0].ToString();
+            toolStripStatusLabel6.Text = pos[1].ToString();
 
             // 遍历uiGroupBox3控件集合中的每个控件
             foreach (Control item in uiGroupBox3.Controls)
@@ -128,7 +132,7 @@ namespace KongZhiKa
                 // 将 PictureBox 的 Tag 属性拆分为字符串数组，使用 "_" 作为分隔符
                 string[] str = pic.Tag.ToString().Split("_");
                 // 调用 zmotioncs 的 GetInputStatus 方法获取输入状态，status 存储结果
-                zmotioncs.GetInputStatus(int.Parse(str[0]), out uint status);
+                zmotioncs.GetInputStatus(int.Parse(str[1]), out uint status);
 
                 // 如果状态为 1，则将 PictureBox 的背景颜色设置为红色
                 if (status == 1)

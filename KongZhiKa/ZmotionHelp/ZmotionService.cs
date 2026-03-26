@@ -193,11 +193,14 @@ namespace KongZhiKa.ZmotionHelp
             {
                 // 不同轴号对应不同的限位信号输入端口编号
                 case 0:
-                    return new int[] { 11, 13, 12 };
+                                   //原点 负限位 正限位
+                    return new int[] { 8, 7, 9 };
                 case 1:
-                    return new int[] { 8, 9, 10 };
+                                   //原点 负限位 正限位
+                    return new int[] { 14, 13, 15 };
                 case 2:
-                    return new int[] { 0, 1, 2 };
+                                    //原点 负限位 正限位
+                    return new int[] { 11, 10, 12 };
                 default:
                     break;
             }
