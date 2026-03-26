@@ -307,7 +307,18 @@ namespace KongZhiKa.ZmotionHelp
                 return ApiResult.CreateFail($"执行连续运动失败，异常信息：{ex.Message}");
             }
         }
-
+        /// <summary>
+        /// 移动轴的函数，用于控制特定轴的运动参数。
+        /// </summary>
+        /// <param name="nAxis">轴的编号</param>
+        /// <param name="TextBox_units">运动单位</param>
+        /// <param name="TextBox_lspeed">低速</param>
+        /// <param name="TextBox_speed">速度</param>
+        /// <param name="TextBox_accel">加速度</param>
+        /// <param name="TextBox_decel">减速度</param>
+        /// <param name="TextBox_sramp">S形加速度</param>
+        /// <param name="fdistance">移动距离</param>
+        /// <returns>API结果</returns>
         public override ApiResult MoveAS(int nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, float fdistance)
         {
             // 检查设备是否已打开
@@ -353,6 +364,18 @@ namespace KongZhiKa.ZmotionHelp
             }
         }
 
+        /// <summary>
+        /// 相对运动
+        /// </summary>
+        /// <param name="nAxis"></param>
+        /// <param name="TextBox_units"></param>
+        /// <param name="TextBox_lspeed"></param>
+        /// <param name="TextBox_speed"></param>
+        /// <param name="TextBox_accel"></param>
+        /// <param name="TextBox_decel"></param>
+        /// <param name="TextBox_sramp"></param>
+        /// <param name="fdistance"></param>
+        /// <returns></returns>
         public override ApiResult MultipleSpindle(int[] nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, float[] fdistance)
         {
             if (!base.isOpen)
@@ -388,6 +411,11 @@ namespace KongZhiKa.ZmotionHelp
             return ApiResult.CreateSuccess();
         }
 
+        /// <summary>
+        /// 判断指定轴是否处于空闲状态。
+        /// </summary>
+        /// <param name="axis">要检查的轴的索引。</param>
+        /// <returns>如果轴空闲，返回成功的结果；否则返回失败的结果。</returns>
         public override ApiResult IsMove(int axis)
         {
             int status = 0;
@@ -395,6 +423,12 @@ namespace KongZhiKa.ZmotionHelp
             return status == 0 ? ApiResult.CreateSuccess() : ApiResult.CreateFail();
         }
 
+
+        /// <summary>
+        /// 等待轴停止
+        /// </summary>
+        /// <param name="axis"></param>
+        /// <returns></returns>
         public override ApiResult WaitStop(int axis)
         {
             int status = 0;
@@ -407,5 +441,129 @@ namespace KongZhiKa.ZmotionHelp
             }
             return ApiResult.CreateSuccess();
         }
+
+        /// <summary>
+        /// 绝对运动
+        /// </summary>
+        /// <param name="nAxis"></param>
+        /// <param name="TextBox_units"></param>
+        /// <param name="TextBox_lspeed"></param>
+        /// <param name="TextBox_speed"></param>
+        /// <param name="TextBox_accel"></param>
+        /// <param name="TextBox_decel"></param>
+        /// <param name="TextBox_sramp"></param>
+        /// <param name="fdistance"></param>
+        /// <returns></returns>
+        public override ApiResult MultipleSpindleAS(int[] nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, float[] fdistance)
+        {
+            if (!base.isOpen)
+            {
+                return ApiResult.CreateFail();
+            }
+
+            for (int i = 0; i < nAxis.Length; i++)
+            {
+                if (this.IsMove(nAxis[i]).IsSuccess)
+                {
+                    return ApiResult.CreateFail("轴在运动，请等待停止！");
+                }
+            }
+
+            for (int i = 0; i < nAxis.Length; i++)
+            {
+                ApiResult api = this.MoveAS(nAxis[i], TextBox_units, TextBox_lspeed, TextBox_speed, TextBox_accel, TextBox_decel, TextBox_sramp, fdistance[i]);
+                if (!api.IsSuccess)
+                {
+                    return api;
+                }
+            }
+
+            for (int i = 0; i < nAxis.Length; i++)
+            {
+                ApiResult api = this.WaitStop(nAxis[i]);
+                if (!api.IsSuccess)
+                {
+                    return api;
+                }
+            }
+            return ApiResult.CreateSuccess();
+        }
+
+        /// <summary>
+        /// 停止所有轴运动
+        /// </summary>
+        /// <param name="axis"></param>
+        /// <returns></returns>
+        public override ApiResult StopCancelAxisList(int[] axis)
+        {
+            if (!base.isOpen)
+            {
+                return ApiResult.CreateFail();
+            }
+            ApiResult result = ErrorHandler(zmcaux.ZAux_Direct_CancelAxisList(g_handle, axis.Length, axis, 3));
+            Application.DoEvents();
+            return result;
+        }
+
+        public override ApiResult Lines(int[] axiss, float textBox_seep, float textBox_acc, float textBox_bec, float[] destpos)
+        {
+            if (!base.isOpen)
+            {
+                return ApiResult.CreateFail();
+            }
+            List<int> list = new List<int>();
+
+            try
+            {
+                list.Add(zmcaux.ZAux_Direct_Base(g_handle, 3, axiss));
+                list.Add(zmcaux.ZAux_Direct_SetSpeed(g_handle, axiss[0], textBox_seep));
+                list.Add(zmcaux.ZAux_Direct_SetAccel(g_handle, axiss[0], textBox_acc));
+                list.Add(zmcaux.ZAux_Direct_SetDecel(g_handle, axiss[0], textBox_bec));
+                list.Add(zmcaux.ZAux_Direct_MoveAbs(g_handle, axiss.Length, axiss, destpos));
+
+                if (list.Sum() > 0)
+                {
+                    return ErrorHandler(list.Sum());
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("执行插补运动失败");
+                return ApiResult.CreateFail($"执行插补失败" + ex.Message);
+            }
+            return ApiResult.CreateSuccess();
+        }
+
+        public override ApiResult Circular2ABS(int[] axiss, float textBox_seep, float textBox_acc, float textBox_bec, float[] destpos, float[] midlist)
+        {
+            if (!base.isOpen)
+            {
+                return ApiResult.CreateFail();
+            }
+
+            List<int> list = new List<int>();
+
+            try
+            {
+                list.Add(zmcaux.ZAux_Direct_Base(g_handle, 3, axiss));
+                list.Add(zmcaux.ZAux_Direct_SetSpeed(g_handle, axiss[0], textBox_seep));
+                list.Add(zmcaux.ZAux_Direct_SetAccel(g_handle, axiss[0], textBox_acc));
+                list.Add(zmcaux.ZAux_Direct_SetDecel(g_handle, axiss[0], textBox_bec));
+                list.Add(zmcaux.ZAux_Direct_MoveCirc2Abs(g_handle, axiss.Length, axiss, midlist[0], midlist[1], destpos[0], midlist[1]));
+
+                if (list.Sum() > 0)
+                {
+                    return ErrorHandler(list.Sum());
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("执行插补运动失败");
+                return ApiResult.CreateFail($"执行插补失败" + ex.Message);
+            }
+            return ApiResult.CreateSuccess();
+
+        }
     }
 }
+

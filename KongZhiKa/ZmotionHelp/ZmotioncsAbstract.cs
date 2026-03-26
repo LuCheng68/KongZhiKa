@@ -86,8 +86,6 @@ namespace KongZhiKa.ZmotionHelp
         /// <returns></returns>
         public abstract ApiResult relativeMove(int nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, float fdistance);
 
-
-
         /// <summary>
         /// 轴绝对移动
         /// </summary>
@@ -101,10 +99,39 @@ namespace KongZhiKa.ZmotionHelp
         /// <returns></returns>
         public abstract ApiResult MoveAS(int nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, float fdistance);
 
-
+        /// <summary>
+        /// 相对运动
+        /// </summary>
+        /// <param name="nAxis">需要控制的轴编号数组。</param>
+        /// <param name="TextBox_units">轴的单位长度。</param>
+        /// <param name="TextBox_lspeed">轴的低速。</param>
+        /// <param name="TextBox_speed">轴的速度。</param>
+        /// <param name="TextBox_accel">轴的加速度。</param>
+        /// <param name="TextBox_decel">轴的减速度。</param>
+        /// <param name="TextBox_sramp">轴的S型加速度斜率。</param>
+        /// <param name="fdistance">每个轴的目标距离数组。</param>
+        /// <returns>API调用结果。</returns>
         public abstract ApiResult MultipleSpindle(int[] nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, float[] fdistance);
 
+        /// <summary>
+        /// 绝对运动
+        /// </summary>
+        /// <param name="nAxis">需要控制的轴编号数组。</param>
+        /// <param name="TextBox_units">轴的单位长度。</param>
+        /// <param name="TextBox_lspeed">轴的低速。</param>
+        /// <param name="TextBox_speed">轴的速度。</param>
+        /// <param name="TextBox_accel">轴的加速度。</param>
+        /// <param name="TextBox_decel">轴的减速度。</param>
+        /// <param name="TextBox_sramp">轴的S型加速度斜率。</param>
+        /// <param name="fdistance">每个轴的目标距离数组。</param>
+        /// <returns>API调用结果。</returns>
+        public abstract ApiResult MultipleSpindleAS(int[] nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, float[] fdistance);
 
+        /// <summary>
+        /// 检查指定轴是否可以移动
+        /// </summary>
+        /// <param name="axis">轴的标识</param>
+        /// <returns>API结果，表示指定轴是否可以移动</returns>
         public abstract ApiResult IsMove(int axis);
 
         /// <summary>
@@ -114,5 +141,34 @@ namespace KongZhiKa.ZmotionHelp
         /// <returns></returns>
         public abstract ApiResult WaitStop(int axis);
 
+        /// <summary>
+        /// 停止所有轴
+        /// </summary>
+        /// <param name="axis">轴的数组</param>
+        /// <returns>API结果</returns>
+        public abstract ApiResult StopCancelAxisList(int[] axis);
+
+        /// <summary>
+        /// 直线插补
+        /// </summary>
+        /// <param name="axiss"></param>
+        /// <param name="textBox_seep"></param>
+        /// <param name="textBox_acc"></param>
+        /// <param name="textBox_bec"></param>
+        /// <param name="destpos"></param>
+        /// <returns></returns>
+        public abstract ApiResult Lines(int[] axiss, float textBox_seep, float textBox_acc, float textBox_bec, float[] destpos);
+
+
+        /// <summary>
+        /// 圆弧插补
+        /// </summary>
+        /// <param name="axiss"></param>
+        /// <param name="textBox_seep"></param>
+        /// <param name="textBox_acc"></param>
+        /// <param name="textBox_bec"></param>
+        /// <param name="destpos"></param>
+        /// <returns></returns>
+        public abstract ApiResult Circular2ABS(int[] axiss, float textBox_seep, float textBox_acc, float textBox_bec, float[] destpos, float[] midlist);
     }
 }

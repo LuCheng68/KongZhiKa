@@ -17,7 +17,7 @@ namespace KongZhiKa
     public partial class Form1 : UIForm
     {
         private ZmotioncsAbstract zmotioncs;
-        
+
         public Form1()
         {
             InitializeComponent();
@@ -159,14 +159,14 @@ namespace KongZhiKa
 
                 UICheckBox ck = item as UICheckBox;
 
-                if (!ck.Checked) 
+                if (!ck.Checked)
                 {
                     continue;
                 }
                 result.Add(int.Parse(ck.Tag.ToString()));
                 foreach (Control item1 in uiGroupBox6.Controls)
                 {
-                    if (!(item1 is UITextBox)|| null == item1.Tag)
+                    if (!(item1 is UITextBox) || null == item1.Tag)
                     {
                         continue;
                     }
@@ -177,11 +177,106 @@ namespace KongZhiKa
                 }
             }
 
-            // 调用zmotioncs类的MultipleSpindle方法，传入多个参数以进行多主轴操作
-            zmotioncs.MultipleSpindle(result.ToArray(), float.Parse(TextBox_unit.Text),
+            if (uiRadioButton1.Checked == true)
+            {
+                // 调用zmotioncs类的MultipleSpindle方法，传入多个参数以进行多主轴操作
+                zmotioncs.MultipleSpindle(result.ToArray(), float.Parse(TextBox_unit.Text),
                 float.Parse(TextBox_lspeed.Text), float.Parse(TextBox_seed.Text),
                 float.Parse(TextBox_accel.Text), float.Parse(TextBox_decel.Text),
                 float.Parse(TextBox_aramp.Text), distance.ToArray());
+            }
+            else
+            {
+                zmotioncs.MultipleSpindleAS(result.ToArray(), float.Parse(TextBox_unit.Text),
+                float.Parse(TextBox_lspeed.Text), float.Parse(TextBox_seed.Text),
+                float.Parse(TextBox_accel.Text), float.Parse(TextBox_decel.Text),
+                float.Parse(TextBox_aramp.Text), distance.ToArray());
+            }
+        }
+
+        private void uiButton8_Click(object sender, EventArgs e)
+        {
+            zmotioncs.StopCancelAxisList(axis);
+        }
+
+        private void uiButton9_Click(object sender, EventArgs e)
+        {
+            //轴
+            List<int> result = new List<int>();
+            //距离
+            List<float> distance = new List<float>();
+
+            foreach (Control item in uiGroupBox1.Controls)
+            {
+                if (!(item is UICheckBox))
+                {
+                    continue;
+                }
+
+                UICheckBox ck = item as UICheckBox;
+
+                if (!ck.Checked)
+                {
+                    continue;
+                }
+                result.Add(int.Parse(ck.Tag.ToString()));
+                foreach (Control item1 in uiGroupBox6.Controls)
+                {
+                    if (!(item1 is UITextBox) || null == item1.Tag)
+                    {
+                        continue;
+                    }
+                    if (item.Tag.ToString() == item1.Tag.ToString())
+                    {
+                        distance.Add(float.Parse(item1.Text));
+                    }
+                }
+                zmotioncs.Lines(result.ToArray(), float.Parse(TextBox_seed.Text), float.Parse(TextBox_accel.Text), float.Parse(TextBox_decel.Text), distance.ToArray());
+
+            }
+        }
+
+        private void uiButton10_Click(object sender, EventArgs e)
+        {
+            //轴
+            List<int> result = new List<int>();
+            //距离
+            List<float> distance = new List<float>();
+
+            List<float> midlist = new List<float>();
+
+            foreach (Control item in uiGroupBox1.Controls)
+            {
+                if (!(item is UICheckBox))
+                {
+                    continue;
+                }
+
+                UICheckBox ck = item as UICheckBox;
+
+                if (!ck.Checked)
+                {
+                    continue;
+                }
+                result.Add(int.Parse(ck.Tag.ToString()));
+                foreach (Control item1 in uiGroupBox6.Controls)
+                {
+                    if (!(item1 is UITextBox) || null == item1.Tag)
+                    {
+                        continue;
+                    }
+                    if (item.Tag.ToString() == item1.Tag.ToString())
+                    {
+                        distance.Add(float.Parse(item1.Text));
+
+                        Control con = uiGroupBox5.Controls["uiTextBox10_" + item.Tag.ToString()];
+                        Debug.WriteLine($"对应轴号 ：{ck.Tag.ToString()} 对应距离：{item.Text}  对应中间点：{con.Text}");
+                        midlist.Add(float.Parse(con.Text));
+                    }
+                }
+            }
+
+            zmotioncs.Circular2ABS(result.ToArray(), float.Parse(TextBox_seed.Text), float.Parse(TextBox_accel.Text), float.Parse(TextBox_decel.Text), distance.ToArray(), midlist.ToArray());
 
         }
     }

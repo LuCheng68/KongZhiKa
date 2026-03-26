@@ -73,10 +73,10 @@
             this.uiLabel8 = new Sunny.UI.UILabel();
             this.uiGroupBox4 = new Sunny.UI.UIGroupBox();
             this.uiGroupBox6 = new Sunny.UI.UIGroupBox();
-            this.uiTextBox12 = new Sunny.UI.UITextBox();
-            this.uiTextBox11 = new Sunny.UI.UITextBox();
+            this.uiTextBox10_0 = new Sunny.UI.UITextBox();
+            this.uiTextBox10_3 = new Sunny.UI.UITextBox();
             this.uiTextBox9 = new Sunny.UI.UITextBox();
-            this.uiTextBox10 = new Sunny.UI.UITextBox();
+            this.uiTextBox10_1 = new Sunny.UI.UITextBox();
             this.uiTextBox8 = new Sunny.UI.UITextBox();
             this.uiTextBox7 = new Sunny.UI.UITextBox();
             this.uiLabel19 = new Sunny.UI.UILabel();
@@ -314,13 +314,16 @@
             this.TextBox_aramp.ShowText = false;
             this.TextBox_aramp.Size = new System.Drawing.Size(150, 29);
             this.TextBox_aramp.TabIndex = 1;
+            this.TextBox_aramp.Text = "0";
             this.TextBox_aramp.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.TextBox_aramp.Watermark = "";
             // 
             // TextBox_decel
             // 
             this.TextBox_decel.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TextBox_decel.DoubleValue = 2000D;
             this.TextBox_decel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TextBox_decel.IntValue = 2000;
             this.TextBox_decel.Location = new System.Drawing.Point(157, 286);
             this.TextBox_decel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TextBox_decel.MinimumSize = new System.Drawing.Size(1, 16);
@@ -329,13 +332,16 @@
             this.TextBox_decel.ShowText = false;
             this.TextBox_decel.Size = new System.Drawing.Size(150, 29);
             this.TextBox_decel.TabIndex = 1;
+            this.TextBox_decel.Text = "2000";
             this.TextBox_decel.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.TextBox_decel.Watermark = "";
             // 
             // TextBox_accel
             // 
             this.TextBox_accel.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TextBox_accel.DoubleValue = 2000D;
             this.TextBox_accel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TextBox_accel.IntValue = 2000;
             this.TextBox_accel.Location = new System.Drawing.Point(157, 225);
             this.TextBox_accel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TextBox_accel.MinimumSize = new System.Drawing.Size(1, 16);
@@ -344,13 +350,16 @@
             this.TextBox_accel.ShowText = false;
             this.TextBox_accel.Size = new System.Drawing.Size(150, 29);
             this.TextBox_accel.TabIndex = 1;
+            this.TextBox_accel.Text = "2000";
             this.TextBox_accel.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.TextBox_accel.Watermark = "";
             // 
             // TextBox_seed
             // 
             this.TextBox_seed.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TextBox_seed.DoubleValue = 2000D;
             this.TextBox_seed.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TextBox_seed.IntValue = 2000;
             this.TextBox_seed.Location = new System.Drawing.Point(157, 167);
             this.TextBox_seed.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TextBox_seed.MinimumSize = new System.Drawing.Size(1, 16);
@@ -359,13 +368,16 @@
             this.TextBox_seed.ShowText = false;
             this.TextBox_seed.Size = new System.Drawing.Size(150, 29);
             this.TextBox_seed.TabIndex = 1;
+            this.TextBox_seed.Text = "2000";
             this.TextBox_seed.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.TextBox_seed.Watermark = "";
             // 
             // TextBox_lspeed
             // 
             this.TextBox_lspeed.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TextBox_lspeed.DoubleValue = 2000D;
             this.TextBox_lspeed.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TextBox_lspeed.IntValue = 2000;
             this.TextBox_lspeed.Location = new System.Drawing.Point(157, 103);
             this.TextBox_lspeed.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TextBox_lspeed.MinimumSize = new System.Drawing.Size(1, 16);
@@ -374,13 +386,16 @@
             this.TextBox_lspeed.ShowText = false;
             this.TextBox_lspeed.Size = new System.Drawing.Size(150, 29);
             this.TextBox_lspeed.TabIndex = 1;
+            this.TextBox_lspeed.Text = "2000";
             this.TextBox_lspeed.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.TextBox_lspeed.Watermark = "";
             // 
             // TextBox_unit
             // 
             this.TextBox_unit.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TextBox_unit.DoubleValue = 2D;
             this.TextBox_unit.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TextBox_unit.IntValue = 2;
             this.TextBox_unit.Location = new System.Drawing.Point(157, 42);
             this.TextBox_unit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TextBox_unit.MinimumSize = new System.Drawing.Size(1, 16);
@@ -389,6 +404,7 @@
             this.TextBox_unit.ShowText = false;
             this.TextBox_unit.Size = new System.Drawing.Size(150, 29);
             this.TextBox_unit.TabIndex = 1;
+            this.TextBox_unit.Text = "2";
             this.TextBox_unit.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.TextBox_unit.Watermark = "";
             // 
@@ -689,10 +705,10 @@
             // 
             // uiGroupBox6
             // 
-            this.uiGroupBox6.Controls.Add(this.uiTextBox12);
-            this.uiGroupBox6.Controls.Add(this.uiTextBox11);
+            this.uiGroupBox6.Controls.Add(this.uiTextBox10_0);
+            this.uiGroupBox6.Controls.Add(this.uiTextBox10_3);
             this.uiGroupBox6.Controls.Add(this.uiTextBox9);
-            this.uiGroupBox6.Controls.Add(this.uiTextBox10);
+            this.uiGroupBox6.Controls.Add(this.uiTextBox10_1);
             this.uiGroupBox6.Controls.Add(this.uiTextBox8);
             this.uiGroupBox6.Controls.Add(this.uiTextBox7);
             this.uiGroupBox6.Controls.Add(this.uiLabel19);
@@ -716,35 +732,35 @@
             this.uiGroupBox6.Text = "多轴运动参数";
             this.uiGroupBox6.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // uiTextBox12
+            // uiTextBox10_0
             // 
-            this.uiTextBox12.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.uiTextBox12.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiTextBox12.Location = new System.Drawing.Point(205, 425);
-            this.uiTextBox12.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiTextBox12.MinimumSize = new System.Drawing.Size(1, 16);
-            this.uiTextBox12.Name = "uiTextBox12";
-            this.uiTextBox12.Padding = new System.Windows.Forms.Padding(5);
-            this.uiTextBox12.ShowText = false;
-            this.uiTextBox12.Size = new System.Drawing.Size(150, 29);
-            this.uiTextBox12.TabIndex = 1;
-            this.uiTextBox12.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiTextBox12.Watermark = "";
+            this.uiTextBox10_0.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.uiTextBox10_0.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiTextBox10_0.Location = new System.Drawing.Point(205, 425);
+            this.uiTextBox10_0.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiTextBox10_0.MinimumSize = new System.Drawing.Size(1, 16);
+            this.uiTextBox10_0.Name = "uiTextBox10_0";
+            this.uiTextBox10_0.Padding = new System.Windows.Forms.Padding(5);
+            this.uiTextBox10_0.ShowText = false;
+            this.uiTextBox10_0.Size = new System.Drawing.Size(150, 29);
+            this.uiTextBox10_0.TabIndex = 1;
+            this.uiTextBox10_0.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.uiTextBox10_0.Watermark = "";
             // 
-            // uiTextBox11
+            // uiTextBox10_3
             // 
-            this.uiTextBox11.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.uiTextBox11.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiTextBox11.Location = new System.Drawing.Point(205, 376);
-            this.uiTextBox11.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiTextBox11.MinimumSize = new System.Drawing.Size(1, 16);
-            this.uiTextBox11.Name = "uiTextBox11";
-            this.uiTextBox11.Padding = new System.Windows.Forms.Padding(5);
-            this.uiTextBox11.ShowText = false;
-            this.uiTextBox11.Size = new System.Drawing.Size(150, 29);
-            this.uiTextBox11.TabIndex = 1;
-            this.uiTextBox11.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiTextBox11.Watermark = "";
+            this.uiTextBox10_3.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.uiTextBox10_3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiTextBox10_3.Location = new System.Drawing.Point(205, 376);
+            this.uiTextBox10_3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiTextBox10_3.MinimumSize = new System.Drawing.Size(1, 16);
+            this.uiTextBox10_3.Name = "uiTextBox10_3";
+            this.uiTextBox10_3.Padding = new System.Windows.Forms.Padding(5);
+            this.uiTextBox10_3.ShowText = false;
+            this.uiTextBox10_3.Size = new System.Drawing.Size(150, 29);
+            this.uiTextBox10_3.TabIndex = 1;
+            this.uiTextBox10_3.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.uiTextBox10_3.Watermark = "";
             // 
             // uiTextBox9
             // 
@@ -762,20 +778,20 @@
             this.uiTextBox9.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             this.uiTextBox9.Watermark = "";
             // 
-            // uiTextBox10
+            // uiTextBox10_1
             // 
-            this.uiTextBox10.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.uiTextBox10.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.uiTextBox10.Location = new System.Drawing.Point(205, 326);
-            this.uiTextBox10.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiTextBox10.MinimumSize = new System.Drawing.Size(1, 16);
-            this.uiTextBox10.Name = "uiTextBox10";
-            this.uiTextBox10.Padding = new System.Windows.Forms.Padding(5);
-            this.uiTextBox10.ShowText = false;
-            this.uiTextBox10.Size = new System.Drawing.Size(150, 29);
-            this.uiTextBox10.TabIndex = 1;
-            this.uiTextBox10.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            this.uiTextBox10.Watermark = "";
+            this.uiTextBox10_1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.uiTextBox10_1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiTextBox10_1.Location = new System.Drawing.Point(205, 326);
+            this.uiTextBox10_1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiTextBox10_1.MinimumSize = new System.Drawing.Size(1, 16);
+            this.uiTextBox10_1.Name = "uiTextBox10_1";
+            this.uiTextBox10_1.Padding = new System.Windows.Forms.Padding(5);
+            this.uiTextBox10_1.ShowText = false;
+            this.uiTextBox10_1.Size = new System.Drawing.Size(150, 29);
+            this.uiTextBox10_1.TabIndex = 1;
+            this.uiTextBox10_1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            this.uiTextBox10_1.Watermark = "";
             // 
             // uiTextBox8
             // 
@@ -883,6 +899,7 @@
             this.uiButton10.TabIndex = 2;
             this.uiButton10.Text = "圆弧插补";
             this.uiButton10.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton10.Click += new System.EventHandler(this.uiButton10_Click);
             // 
             // uiButton9
             // 
@@ -895,6 +912,7 @@
             this.uiButton9.TabIndex = 2;
             this.uiButton9.Text = "直线插补";
             this.uiButton9.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton9.Click += new System.EventHandler(this.uiButton9_Click);
             // 
             // uiButton8
             // 
@@ -907,6 +925,7 @@
             this.uiButton8.TabIndex = 2;
             this.uiButton8.Text = "停止";
             this.uiButton8.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton8.Click += new System.EventHandler(this.uiButton8_Click);
             // 
             // uiButton7
             // 
@@ -949,6 +968,7 @@
             // 
             // uiRadioButton1
             // 
+            this.uiRadioButton1.Checked = true;
             this.uiRadioButton1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uiRadioButton1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiRadioButton1.Location = new System.Drawing.Point(54, 48);
@@ -1220,10 +1240,10 @@
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.PictureBox pictureBox4;
         private Sunny.UI.UIGroupBox uiGroupBox6;
-        private Sunny.UI.UITextBox uiTextBox12;
-        private Sunny.UI.UITextBox uiTextBox11;
+        private Sunny.UI.UITextBox uiTextBox10_0;
+        private Sunny.UI.UITextBox uiTextBox10_3;
         private Sunny.UI.UITextBox uiTextBox9;
-        private Sunny.UI.UITextBox uiTextBox10;
+        private Sunny.UI.UITextBox uiTextBox10_1;
         private Sunny.UI.UITextBox uiTextBox8;
         private Sunny.UI.UITextBox uiTextBox7;
         private Sunny.UI.UILabel uiLabel19;
