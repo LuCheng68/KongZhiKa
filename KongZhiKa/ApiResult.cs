@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace KongZhiKa
 {
@@ -11,27 +12,27 @@ namespace KongZhiKa
         public bool IsSuccess { get; set; }
 
         public string Message { get; set; }
-    
+
         public object Data { get; set; }
 
         public static ApiResult CreateSuccess()
         {
-            return new ApiResult(){IsSuccess = true, Message = "成功"};
+            return new ApiResult() { IsSuccess = true, Message = "成功" };
         }
 
         public static ApiResult CreateFail()
-        { 
-            return new ApiResult(){IsSuccess = false, Message = "失败"};
+        {
+            return new ApiResult() { IsSuccess = false, Message = "失败" };
         }
 
         public static ApiResult CreateFailure(string message)
         {
-            return new ApiResult(){IsSuccess = false, Message = message};
+            return new ApiResult() { IsSuccess = false, Message = message };
         }
 
-        internal static ApiResult CreateFail(string v)
+        internal static ApiResult CreateFail(string message)
         {
-            throw new NotImplementedException();
+            return new ApiResult() { IsSuccess = false, Message = message };
         }
     }
 }
