@@ -170,5 +170,19 @@ namespace KongZhiKa.ZmotionHelp
         /// <param name="destpos"></param>
         /// <returns></returns>
         public abstract ApiResult Circular2ABS(int[] axiss, float textBox_seep, float textBox_acc, float textBox_bec, float[] destpos, float[] midlist);
+
+        /// <summary>
+        /// 回原点
+        /// </summary>
+        /// <param name="axiss"></param>
+        /// <param name="textBox_seep"></param>
+        /// <param name="textBox_acc"></param>
+        /// <param name="textBox_bec"></param>
+        /// <param name="destpos"></param>
+        /// <returns></returns>
+        public abstract ApiResult BackHome(int nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, int creep);
+
+
+
     }
 }

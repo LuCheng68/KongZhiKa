@@ -283,5 +283,31 @@ namespace KongZhiKa
             zmotioncs.Circular2ABS(result.ToArray(), float.Parse(TextBox_seed.Text), float.Parse(TextBox_accel.Text), float.Parse(TextBox_decel.Text), distance.ToArray(), midlist.ToArray());
 
         }
+
+        private void uiButton3_Click(object sender, EventArgs e)
+        {
+            zmotioncs.StopCancelAxisList(axis);
+        }
+
+        private void uiButton6_Click(object sender, EventArgs e)
+        {
+            this.zmotioncs.BackHome(1, float.Parse(TextBox_unit.Text), float.Parse(TextBox_lspeed.Text),
+            float.Parse(TextBox_seed.Text), float.Parse(TextBox_accel.Text),
+            float.Parse(TextBox_decel.Text), float.Parse(TextBox_aramp.Text), 10);
+        }
+
+        private void uiButton5_Click(object sender, EventArgs e)
+        {
+            this.zmotioncs.BackHome(0, float.Parse(TextBox_unit.Text), float.Parse(TextBox_lspeed.Text),
+            float.Parse(TextBox_seed.Text), float.Parse(TextBox_accel.Text),
+            float.Parse(TextBox_decel.Text), float.Parse(TextBox_aramp.Text), 10);
+        }
+
+        private void uiButton4_Click(object sender, EventArgs e)
+        {
+            this.zmotioncs.BackHome(2, float.Parse(TextBox_unit.Text), float.Parse(TextBox_lspeed.Text),
+            float.Parse(TextBox_seed.Text), float.Parse(TextBox_accel.Text),
+            float.Parse(TextBox_decel.Text), float.Parse(TextBox_aramp.Text), 10);
+        }
     }
 }

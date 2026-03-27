@@ -193,13 +193,13 @@ namespace KongZhiKa.ZmotionHelp
             {
                 // 不同轴号对应不同的限位信号输入端口编号
                 case 0:
-                                   //原点 负限位 正限位
+                    //原点 负限位 正限位
                     return new int[] { 8, 7, 9 };
                 case 1:
-                                   //原点 负限位 正限位
+                    //原点 负限位 正限位
                     return new int[] { 14, 13, 15 };
                 case 2:
-                                    //原点 负限位 正限位
+                    //原点 负限位 正限位
                     return new int[] { 11, 10, 12 };
                 default:
                     break;
@@ -566,6 +566,37 @@ namespace KongZhiKa.ZmotionHelp
             }
             return ApiResult.CreateSuccess();
 
+        }
+
+        public override ApiResult BackHome(int nAxis, float TextBox_units, float TextBox_lspeed, float TextBox_speed, float TextBox_accel, float TextBox_decel, float TextBox_sramp, int creep = 10)
+        {
+            if (!base.isOpen)
+            {
+                return ApiResult.CreateFail();
+            }
+
+            ApiResult api = this.relativeMove(nAxis, TextBox_units, TextBox_lspeed, TextBox_speed, TextBox_accel, TextBox_decel, TextBox_sramp, -50000);
+            if (!api.IsSuccess)
+            {
+                return api;
+            }
+
+            ApiResult api1 = this.WaitStop(nAxis);
+            if (!api1.IsSuccess)
+            {
+                return api;
+            }
+
+            zmcaux.ZAux_Direct_SetAtype(g_handle, nAxis, 7);
+            zmcaux.ZAux_Direct_SetUnits(g_handle, nAxis, TextBox_units);
+            zmcaux.ZAux_Direct_SetLspeed(g_handle, nAxis, TextBox_lspeed);
+            zmcaux.ZAux_Direct_SetSpeed(g_handle, nAxis, TextBox_speed);
+            zmcaux.ZAux_Direct_SetAccel(g_handle, nAxis, TextBox_accel);
+            zmcaux.ZAux_Direct_SetDecel(g_handle, nAxis, TextBox_decel);
+            zmcaux.ZAux_Direct_SetCreep(g_handle, nAxis, creep);
+            //8 原点正向加回零
+            zmcaux.ZAux_Direct_Single_Datum(g_handle, nAxis, 8);
+            return ApiResult.CreateSuccess();
         }
     }
 }

@@ -223,6 +223,7 @@
             this.uiButton3.TabIndex = 4;
             this.uiButton3.Text = "急停";
             this.uiButton3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton3.Click += new System.EventHandler(this.uiButton3_Click);
             // 
             // uiButton2
             // 
@@ -635,6 +636,7 @@
             this.uiButton6.TabIndex = 2;
             this.uiButton6.Text = "回零点";
             this.uiButton6.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton6.Click += new System.EventHandler(this.uiButton6_Click);
             // 
             // uiButton5
             // 
@@ -647,6 +649,7 @@
             this.uiButton5.TabIndex = 2;
             this.uiButton5.Text = "回零点";
             this.uiButton5.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton5.Click += new System.EventHandler(this.uiButton5_Click);
             // 
             // uiButton4
             // 
@@ -659,6 +662,7 @@
             this.uiButton4.TabIndex = 2;
             this.uiButton4.Text = "回零点";
             this.uiButton4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiButton4.Click += new System.EventHandler(this.uiButton4_Click);
             // 
             // uiLabel12
             // 
